@@ -20,6 +20,7 @@ public class PaintJobEstimator {
         
         // Converts swuare feet to gallons required
         double squareFeetToGallons = 0.00869565217;
+        double costOfPaint = 0;
         
         // Labor wages
         double laborPerHour = 18;
@@ -46,7 +47,7 @@ public class PaintJobEstimator {
         System.out.println("The number of labor hours required for this job is: " + calcLaborHoursRequired(laborInHoursRequired, totalSquareFeet));
         System.out.println("The cost for paint for this job is: " + calcCostOfPaint(pricePerGallon, totalSquareFeet));
         System.out.println("The cost for labor for this job is: " + calcLaborCharges(totalSquareFeet, laborInHoursRequired, laborPerHour, laborCharges));
-        //System.out.println("The cost fo paint for this job is: " + calcTotalCostOfJob(, ));
+        System.out.println("The total cost of the job is: " + calcTotalCostOfJob(laborCharges, pricePerGallon, totalSquareFeet, laborPerHour, laborInHoursRequired, costOfPaint));
   
     }
     
@@ -75,8 +76,12 @@ public class PaintJobEstimator {
     }
         
     // Calc total cost of job
-    public static double calcTotalCostOfJob(double squareFeetToGallons, double totalSquareFeet) {
-        return totalSquareFeet * squareFeetToGallons;
+    public static double calcTotalCostOfJob(double laborCharges, double pricePerGallon, double totalSquareFeet, double laborPerHour, double laborInHoursRequired, double costOfPaint) {
+        double totalLabor = totalSquareFeet * laborInHoursRequired; 
+        laborCharges = laborPerHour * totalLabor;
+        costOfPaint = pricePerGallon * (0.00869565217 * totalSquareFeet);
+      
+        return Math.ceil(laborCharges + costOfPaint);
     }
     
 }
